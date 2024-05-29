@@ -51,7 +51,7 @@ const Title02 = styled.h2`
   }
 `
 
-const CartButton = styled.button`
+export const CartButton = styled.button`
   width: 90px;
   height: 45px;
   background-color: #ffffff;
