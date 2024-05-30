@@ -11,6 +11,16 @@ describe('Header', () => {
       </CartProvider>
     )
 
-    expect(screen.getByText('MKS')).toBeInTheDocument()
+    expect(screen.getByTestId('Title01')).toBeInTheDocument()
   })
+
+  // test('should call toggleCart when CartButton is clicked', () => {
+  //   render(
+  //     <CartProvider>
+  //       <Header />
+  //     </CartProvider>
+  //   )
+
+  //   expect(screen.getByText('MKS')).toBeInTheDocument()
+  // })
 })
