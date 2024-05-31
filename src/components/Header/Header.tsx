@@ -107,7 +107,7 @@ export default function Header() {
               <Cart />
             </motion.div>
           ) : (
-            <CartButton onClick={toggleCart}>
+            <CartButton onClick={toggleCart} data-testid="CartButton">
               <ShoppingCart size={20} />
               <span>{totalQuantity}</span>
             </CartButton>
