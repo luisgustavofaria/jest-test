@@ -152,7 +152,7 @@ export default function Products() {
       <ContainerProducts>
         {Array.from({ length: 8 }).map((_, index) => (
           <ContainerCard key={index}>
-            <Shimmer height={300} width={218} />
+            <Shimmer height={300} width={218} data-testid="loading-shimmer" />
           </ContainerCard>
         ))}
       </ContainerProducts>
@@ -184,7 +184,9 @@ export default function Products() {
         ))}
       </ContainerProducts>
       <FooterContainer>
-        <span>MKS sistemas © Todos os direitos reservados</span>
+        <span data-testid="FooterContainer">
+          MKS sistemas © Todos os direitos reservados
+        </span>
       </FooterContainer>
     </PageContainer>
   )
