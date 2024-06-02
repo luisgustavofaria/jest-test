@@ -321,7 +321,7 @@ const Cart = () => {
       <CartHeader>
         <span>Carrinho de compras</span>
 
-        <Close onClick={toggleCart}>
+        <Close onClick={toggleCart} data-testid="toggleCart">
           <X size={16} />
         </Close>
       </CartHeader>

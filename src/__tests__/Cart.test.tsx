@@ -23,10 +23,12 @@ const mockCartItems = [
   },
 ]
 
-const mockContextValues: CartContextType = {
+const mockToggleCart = jest.fn()
+
+const mockCartContext: CartContextType = {
   cartItems: mockCartItems,
   hiddenCart: false,
-  toggleCart: jest.fn(),
+  toggleCart: mockToggleCart,
   addToCart: jest.fn(),
   increaseQuantity: jest.fn(),
   decreaseQuantity: jest.fn(),
@@ -34,9 +36,9 @@ const mockContextValues: CartContextType = {
   clearCart: jest.fn(),
 }
 
-const renderComponent = (contextValues = mockContextValues) => {
+const renderComponent = () => {
   render(
-    <CartContext.Provider value={contextValues}>
+    <CartContext.Provider value={mockCartContext}>
       <Cart />
     </CartContext.Provider>
   )
@@ -55,12 +57,15 @@ describe('Cart Component', () => {
     expect(screen.getByText('R$500.00')).toBeInTheDocument() // Total price
   })
 
-  // test('calls toggleCart when close button is clicked', () => {
-  //   renderComponent()
+  test('calls toggleCart when close button is clicked', () => {
+    renderComponent()
 
-  //   fireEvent.click(screen.getByRole('button', { name: /x/i }))
-  //   expect(mockContextValues.toggleCart).toHaveBeenCalled()
-  // })
+    const toggleCart = screen.getByTestId('toggleCart')
+
+    fireEvent.click(toggleCart)
+
+    expect(mockToggleCart).toHaveBeenCalled()
+  })
 
   // test('calls increaseQuantity and decreaseQuantity functions when buttons are clicked', () => {
   //   renderComponent()
