@@ -79,28 +79,22 @@ describe('Products', () => {
     })
   })
 
-  // // Ensure products are displayed after loading
-  // await waitFor(() => {
-  // })
+  test('calls addToCart function when Add to Cart button is clicked', async () => {
+    // Mocking axios.get to resolve with mock products
+    ;(axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValueOnce(
+      { data: { products: mockProducts } } as AxiosResponse<any>
+    )
 
-  // test('calls addToCart function when Add to Cart button is clicked', async () => {
-  //   // Mocking axios.get to resolve with mock products
-  //   ;(axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValueOnce(
-  //     { data: { products: mockProducts } } as AxiosResponse<any>
-  //   )
+    renderComponent()
 
-  //   renderComponent()
+    await waitFor(() => {
+      fireEvent.click(screen.getAllByText('COMPRAR')[0]) // Click on the first Add to Cart button
+      fireEvent.click(screen.getAllByText('COMPRAR')[1]) // Click on the second Add to Cart button
+    })
 
-  //   await waitFor(() => {
-  //     fireEvent.click(screen.getAllByText('COMPRAR')[0]) // Click on the first Add to Cart button
-  //     fireEvent.click(screen.getAllByText('COMPRAR')[1]) // Click on the second Add to Cart button
-  //   })
-
-  //   // Ensure addToCart function is called with the correct product details
-  //   expect(mockAddToCart).toHaveBeenCalledTimes(2)
-  //   expect(mockAddToCart).toHaveBeenCalledWith(mockProducts[0])
-  //   expect(mockAddToCart).toHaveBeenCalledWith(mockProducts[1])
-  // })
-
-  // Additional test cases can be added here
+    // Ensure addToCart function is called with the correct product details
+    expect(mockAddToCart).toHaveBeenCalledTimes(2)
+    expect(mockAddToCart).toHaveBeenCalledWith(mockProducts[0])
+    expect(mockAddToCart).toHaveBeenCalledWith(mockProducts[1])
+  })
 })
