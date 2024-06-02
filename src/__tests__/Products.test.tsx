@@ -6,7 +6,8 @@ import axios, { AxiosResponse } from 'axios'
 import '@testing-library/jest-dom'
 
 // Mocking axios.get
-// jest.mock('axios')
+jest.mock('axios')
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
 // Mocking the CartContext
 const mockAddToCart = jest.fn()
@@ -16,7 +17,7 @@ const mockProducts = [
     name: 'Product 1',
     description: 'Description 1',
     price: 100,
-    photo: 'product1.jpg',
+    photo: '/product1.jpg',
     quantity: 1,
   },
   {
@@ -24,7 +25,7 @@ const mockProducts = [
     name: 'Product 2',
     description: 'Description 2',
     price: 200,
-    photo: 'product2.jpg',
+    photo: '/product2.jpg',
     quantity: 1,
   },
 ]
@@ -52,11 +53,21 @@ const renderComponent = () => {
 }
 
 describe('Products', () => {
-  test('renders without error', async () => {
+  test('Render loading', async () => {
+    renderComponent()
+
+    await waitFor(() => {
+      // Verifique se a quantidade correta de elementos de shimmer está presente
+      const loadingShimmers = screen.getAllByTestId('loading-shimmer')
+      expect(loadingShimmers).toHaveLength(8)
+    })
+  })
+
+  test('displays products after loading', async () => {
     // Mocking axios.get to resolve with mock products
-    // ;(axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValueOnce(
-    //   { data: { products: mockProducts } } as AxiosResponse<any>
-    // )
+    mockedAxios.get.mockResolvedValueOnce({
+      data: { products: mockProducts },
+    } as AxiosResponse<any>)
 
     renderComponent()
 
@@ -64,14 +75,12 @@ describe('Products', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('FooterContainer')).toBeInTheDocument()
+      expect(screen.getAllByTestId('product-card')).toHaveLength(2)
     })
   })
-  // expect(screen.getAllByTestId('loading-shimmer')).toHaveLength(8)
 
   // // Ensure products are displayed after loading
   // await waitFor(() => {
-  //   expect(screen.queryByTestId('loading-shimmer')).not.toBeInTheDocument()
-  //   expect(screen.getAllByTestId('product-card')).toHaveLength(2)
   // })
 
   // test('calls addToCart function when Add to Cart button is clicked', async () => {
