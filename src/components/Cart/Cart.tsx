@@ -344,7 +344,10 @@ const Cart = () => {
               </QuantityContainer>
               <Price>R${item.price}</Price>
             </QuantityPriceContainer>
-            <RemoveItem onClick={() => removeFromCart(item.id)}>
+            <RemoveItem
+              onClick={() => removeFromCart(item.id)}
+              data-testid="RemoveItem"
+            >
               <X />
             </RemoveItem>
           </Item>

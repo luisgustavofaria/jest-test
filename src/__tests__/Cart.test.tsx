@@ -24,6 +24,7 @@ const mockCartItems = [
 ]
 
 const mockToggleCart = jest.fn()
+const mockRemoveFromCart = jest.fn()
 
 const mockCartContext: CartContextType = {
   cartItems: mockCartItems,
@@ -32,7 +33,7 @@ const mockCartContext: CartContextType = {
   addToCart: jest.fn(),
   increaseQuantity: jest.fn(),
   decreaseQuantity: jest.fn(),
-  removeFromCart: jest.fn(),
+  removeFromCart: mockRemoveFromCart,
   clearCart: jest.fn(),
 }
 
@@ -77,11 +78,13 @@ describe('Cart Component', () => {
     expect(mockCartContext.decreaseQuantity).toHaveBeenCalledWith(1)
   })
 
-  // test('calls removeFromCart when remove button is clicked', () => {
-  //   renderComponent()
+  test('calls removeFromCart when remove button is clicked', () => {
+    renderComponent()
 
-  //   fireEvent.click(screen.getAllByRole('button', { name: /x/i })[1])
+    const removeFromCartButton = screen.getAllByTestId('RemoveItem')[0]
 
-  //   expect(mockContextValues.removeFromCart).toHaveBeenCalledWith(1)
-  // })
+    fireEvent.click(removeFromCartButton)
+
+    expect(mockRemoveFromCart).toHaveBeenCalledWith(1)
+  })
 })
