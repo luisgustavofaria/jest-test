@@ -67,15 +67,15 @@ describe('Cart Component', () => {
     expect(mockToggleCart).toHaveBeenCalled()
   })
 
-  // test('calls increaseQuantity and decreaseQuantity functions when buttons are clicked', () => {
-  //   renderComponent()
+  test('calls increaseQuantity and decreaseQuantity functions when buttons are clicked', () => {
+    renderComponent()
 
-  //   fireEvent.click(screen.getAllByText('+')[0])
-  //   fireEvent.click(screen.getAllByText('-')[0])
+    fireEvent.click(screen.getAllByText('+')[0])
+    fireEvent.click(screen.getAllByText('-')[0])
 
-  //   expect(mockContextValues.increaseQuantity).toHaveBeenCalledWith(1)
-  //   expect(mockContextValues.decreaseQuantity).toHaveBeenCalledWith(1)
-  // })
+    expect(mockCartContext.increaseQuantity).toHaveBeenCalledWith(1)
+    expect(mockCartContext.decreaseQuantity).toHaveBeenCalledWith(1)
+  })
 
   // test('calls removeFromCart when remove button is clicked', () => {
   //   renderComponent()
